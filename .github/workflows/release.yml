@@ -1,0 +1,56 @@
+name: 发布模板压缩包
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: 打包每个模板
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+
+          while IFS= read -r -d '' dir; do
+            # 只打包直接包含 TeX 源文件的二级目录。
+            if ! find "$dir" -maxdepth 1 -name '*.tex' -print -quit |
+                 grep -q .; then
+              continue
+            fi
+
+            path="${dir#./}"
+            name="$(basename "$dir")"
+
+            # 从当前标签对应的提交打包，保留模板内部目录结构。
+            git archive \
+              --format=zip \
+              --prefix="$name/" \
+              --output="dist/${path//\//-}.zip" \
+              "HEAD:$path"
+          done < <(find . -mindepth 2 -maxdepth 2 \
+                    -type d ! -path './.git/*' -print0)
+
+          compgen -G 'dist/*.zip' > /dev/null
+          ls -lh dist/
+
+      - name: 创建 Release 并上传压缩包
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" dist/*.zip \
+            --verify-tag \
+            --title "$TAG" \
+            --generate-notes
