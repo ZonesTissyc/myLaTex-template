@@ -1,0 +1,87 @@
+% !TeX program = xelatex
+\documentclass[UTF8,a4paper,fontset=none,zihao=-4]{ctexart}
+
+\usepackage[top=18mm,bottom=20mm,left=25mm,right=25mm]{geometry}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+
+% -----------------------------------------------------------------------------
+% Edit the cover information here.
+% -----------------------------------------------------------------------------
+\newcommand{\CoverCourse}{高性能并行计算}
+\newcommand{\CoverDocumentType}{实验报告}
+\newcommand{\CoverSubject}{基于 OpenMP 的 $\pi$ 值计算}
+\newcommand{\CoverStudentName}{张三}
+\newcommand{\CoverStudentID}{2024710020103}
+\newcommand{\CoverCollege}{信息学院}
+\newcommand{\CoverLocation}{中国 · 武汉}
+\newcommand{\CoverDate}{2026 年 9 月}
+
+% System fonts (compile with XeLaTeX).
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}[BoldFont=SimHei,ItalicFont=KaiTi]
+\setCJKsansfont{SimHei}
+\setCJKmonofont{SimSun}
+\setmonofont{Consolas}
+\newfontfamily\coverroman{Times New Roman}
+\newCJKfontfamily\coversong{SimSun}
+\newCJKfontfamily\coverhei{SimHei}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% A fixed-width field with the value centered above a thin rule.
+\newcommand{\coverfield}[2]{%
+  \begin{tabular}{@{}>{\coverhei\zihao{-3}\raggedleft\arraybackslash}p{20mm}@{\hspace{4mm}}p{112mm}@{}}
+    #1： &
+    \begin{minipage}[t]{112mm}
+      \centering\coverhei\zihao{-3}#2\par
+      \vspace{1.2mm}\hrule height 0.4pt
+    \end{minipage}
+  \end{tabular}\par\vspace{5mm}
+}
+
+\begin{document}
+\begin{titlepage}
+  \centering
+  \setlength{\parindent}{0pt}
+  \vspace*{0mm}
+
+  % The emblem and handwritten university name are extracted from the DOCX.
+  \begin{minipage}[c][24mm][c]{25mm}
+    \centering
+    \includegraphics[width=23mm]{assets/hzau-emblem.jpeg}
+  \end{minipage}%
+  \hspace{5mm}%
+  \begin{minipage}[c][24mm][c]{74mm}
+    \centering
+    \includegraphics[width=72mm]{assets/hzau-wordmark.jpeg}
+  \end{minipage}
+
+  \vspace{4mm}
+  {\coverroman\bfseries\fontsize{15pt}{18pt}\selectfont
+    HUAZHONG AGRICULTURAL UNIVERSITY\par}
+
+  \vspace{38mm}
+  {\coverhei\fontsize{30pt}{42pt}\selectfont
+    \xeCJKsetup{CJKglue=\hskip 0.72em}
+    \CoverCourse\par
+    \CoverDocumentType\par}
+
+  \vspace{31mm}
+  \begin{center}
+    \coverfield{题目}{\CoverSubject}
+    \coverfield{姓名}{\CoverStudentName}
+    \coverfield{学号}{\CoverStudentID}
+    \coverfield{学院}{\CoverCollege}
+  \end{center}
+
+  \vfill
+  {\coverhei\zihao{-3}\CoverLocation\par}
+  \vspace{7mm}
+  {\coversong\zihao{-3}\CoverDate\par}
+  \vspace*{19mm}
+\end{titlepage}
+\end{document}

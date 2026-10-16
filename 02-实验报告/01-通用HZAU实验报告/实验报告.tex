@@ -1,0 +1,192 @@
+% !TeX program = xelatex
+\documentclass[UTF8,a4paper,fontset=none,zihao=-4]{ctexart}
+
+\usepackage[top=18mm,bottom=20mm,left=25mm,right=25mm,headheight=15pt,headsep=6mm]{geometry}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins,breakable}
+
+% -----------------------------------------------------------------------------
+% Edit the cover information here.
+% -----------------------------------------------------------------------------
+\newcommand{\CoverCourse}{高性能并行计算}
+\newcommand{\CoverDocumentType}{实验报告}
+\newcommand{\CoverSubject}{基于 OpenMP 的 $\pi$ 值计算}
+\newcommand{\CoverStudentName}{张三}
+\newcommand{\CoverStudentID}{2024710020103}
+\newcommand{\CoverCollege}{信息学院}
+\newcommand{\CoverLocation}{中国 · 武汉}
+\newcommand{\CoverDate}{2026 年 9 月}
+
+% System fonts (compile with XeLaTeX).
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}[BoldFont=SimHei,ItalicFont=KaiTi]
+\setCJKsansfont{SimHei}
+\setCJKmonofont{SimSun}
+\setmonofont{Consolas}
+\newfontfamily\coverroman{Times New Roman}
+\newCJKfontfamily\coversong{SimSun}
+\newCJKfontfamily\coverhei{SimHei}
+
+% Body: Chinese Song typeface, Latin Times New Roman, size -4 (12 pt).
+\setlength{\parindent}{2em}
+% Body header follows the cover fields automatically.
+\fancypagestyle{report}{
+  \fancyhf{}
+  \fancyhead[L]{\normalfont\zihao{5}\CoverCourse}
+  \fancyhead[R]{\normalfont\zihao{5}\CoverSubject}
+  \fancyfoot[C]{\normalfont\thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% Code cards: tcolorbox provides the frame; listings provides highlighting.
+\definecolor{codebackground}{HTML}{F7F9FC}
+\definecolor{codetitle}{HTML}{E9EFF7}
+\definecolor{codeink}{HTML}{24344B}
+\definecolor{codekeyword}{HTML}{3559A6}
+\definecolor{codecomment}{HTML}{63836A}
+\definecolor{codestring}{HTML}{AA5B42}
+\definecolor{coderule}{HTML}{D6DFEB}
+\lstdefinestyle{reportcode}{
+  language=C++,
+  basicstyle=\ttfamily\fontsize{10pt}{13pt}\selectfont\color{codeink},
+  keywordstyle=\bfseries\color{codekeyword},
+  commentstyle=\itshape\color{codecomment},
+  stringstyle=\color{codestring},
+  numbers=left,
+  numberstyle=\ttfamily\scriptsize\color{codeink!45},
+  numbersep=10pt,
+  frame=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=4,
+  aboveskip=0pt,
+  belowskip=0pt
+}
+\lstset{style=reportcode}
+\renewcommand{\lstlistingname}{代码}
+% Usage: \begin{reportcode}[language=Python]{标题} ... \end{reportcode}
+\newtcblisting[auto counter]{reportcode}[2][]{
+  enhanced,
+  breakable,
+  listing only,
+  listing engine=listings,
+  listing options={style=reportcode,#1},
+  title={代码\,\thetcbcounter\quad #2},
+  fonttitle=\normalfont\zihao{5},
+  coltitle=codeink,
+  colbacktitle=codetitle,
+  colback=codebackground,
+  colframe=coderule,
+  boxrule=0.5pt,
+  arc=2mm,
+  boxsep=0pt,
+  left=9mm,right=3mm,top=3mm,bottom=3mm,
+  lefttitle=3mm,righttitle=3mm,toptitle=1.5mm,bottomtitle=1.5mm,
+  before skip=10pt,after skip=10pt
+}
+
+% A fixed-width field with the value centered above a thin rule.
+\newcommand{\coverfield}[2]{%
+  \begin{tabular}{@{}>{\coverhei\zihao{-3}\raggedleft\arraybackslash}p{20mm}@{\hspace{4mm}}p{112mm}@{}}
+    #1： &
+    \begin{minipage}[t]{112mm}
+      \centering\coverhei\zihao{-3}#2\par
+      \vspace{1.2mm}\hrule height 0.4pt
+    \end{minipage}
+  \end{tabular}\par\vspace{5mm}
+}
+
+\begin{document}
+\begin{titlepage}
+  \centering
+  \setlength{\parindent}{0pt}
+  \vspace*{0mm}
+
+  % The emblem and handwritten university name are extracted from the DOCX.
+  \begin{minipage}[c][24mm][c]{25mm}
+    \centering
+    \includegraphics[width=23mm]{assets/hzau-emblem.jpeg}
+  \end{minipage}%
+  \hspace{5mm}%
+  \begin{minipage}[c][24mm][c]{74mm}
+    \centering
+    \includegraphics[width=72mm]{assets/hzau-wordmark.jpeg}
+  \end{minipage}
+
+  \vspace{4mm}
+  {\coverroman\bfseries\fontsize{15pt}{18pt}\selectfont
+    HUAZHONG AGRICULTURAL UNIVERSITY\par}
+
+  \vspace{38mm}
+  {\coverhei\fontsize{30pt}{42pt}\selectfont
+    \xeCJKsetup{CJKglue=\hskip 0.72em}
+    \CoverCourse\par
+    \CoverDocumentType\par}
+
+  \vspace{31mm}
+  \begin{center}
+    \coverfield{题目}{\CoverSubject}
+    \coverfield{姓名}{\CoverStudentName}
+    \coverfield{学号}{\CoverStudentID}
+    \coverfield{学院}{\CoverCollege}
+  \end{center}
+
+  \vfill
+  {\coverhei\zihao{-3}\CoverLocation\par}
+  \vspace{7mm}
+  {\coversong\zihao{-3}\CoverDate\par}
+  \vspace*{19mm}
+\end{titlepage}
+
+% Replace the following example sections with your experiment content.
+\pagestyle{report}
+\setcounter{page}{1}
+\zihao{-4}
+\rmfamily
+
+\section{实验目的}
+在此填写实验目的和要求。正文中文使用宋体小四，英文使用 Times New Roman。
+例如：OpenMP enables parallel programming on shared-memory systems.
+
+\section{实验环境}
+在此填写操作系统、编译器版本、硬件配置及相关软件环境。
+
+\section{实验原理与方法}
+在此介绍实验原理、算法思路和实现方法。
+
+\section{实验过程与代码}
+在此描述实验步骤。代码块采用圆角卡片样式，默认使用 C++ 语法高亮，支持行号和自动换行；
+可通过 language=Python 等选项切换语言。
+
+\begin{reportcode}[language=C++]{OpenMP 并行计算示例}
+#include <iostream>
+int main() {
+    const int steps = 1000000; double sum = 0.0;
+    // Sum the areas of rectangles in parallel.
+    #pragma omp parallel for reduction(+:sum)
+    for (int i = 0; i < steps; ++i) {
+        double x = (i + 0.5) / steps;
+        sum += 4.0 / (1.0 + x * x);
+    }
+    std::cout << "pi = " << sum / steps << std::endl;
+}
+\end{reportcode}
+
+\section{实验结果与分析}
+在此展示实验数据、图表及结果分析，并讨论误差和性能表现。
+
+\section{实验总结}
+在此总结实验结论、遇到的问题及改进方向。
+
+\end{document}
