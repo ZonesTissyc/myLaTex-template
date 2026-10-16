@@ -57,8 +57,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
+        shell: bash
         run: |
-          gh release create "$TAG" dist/*.zip \
+          set -euo pipefail
+          # GitHub 会改写中文附件文件名；通过显示标签保留完整模板名称。
+          assets=()
+          for archive in dist/*.zip; do
+            assets+=("$archive#${archive##*/}")
+          done
+          gh release create "$TAG" "${assets[@]}" \
             --verify-tag \
             --title "$TAG" \
             --generate-notes
