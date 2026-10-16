@@ -1,0 +1,165 @@
+% !TeX program = xelatex
+\documentclass{techpaper2026}
+
+% 可选参数是页眉短标题；题目较长时建议填写。
+\papertitle[二甲醚清洁燃料均质压燃燃烧数值模拟研究]
+  {二甲醚清洁燃料均质压燃燃烧数值模拟研究}
+\paperauthor{XXX}
+\paperstudentid{XXX}
+\paperclass{XXX}
+
+\begin{document}
+
+\makepapertitle
+
+\begin{paperabstract}
+均质充量压缩着火（HCCI）燃烧是一种可实现高效低污染的燃烧方式。
+本文以二甲醚（DME）为例，采用化学动力学模型研究压缩比、燃空当量比、
+进气温度、发动机转速及废气再循环等因素对着火和燃烧过程的影响。
+结果表明，DME 的 HCCI 燃烧具有明显的低温和高温两阶段放热特征。
+此处替换为论文摘要，摘要正文使用中文五号宋体、英文五号 Times New Roman，
+首行缩进两个汉字并采用单倍行距。
+\end{paperabstract}
+
+\paperkeywords{均质充量压缩着火，化学动力学，数值模拟，二甲醚，EGR}
+
+\section{引言}
+
+HCCI 发动机的着火与燃烧过程受到燃料化学反应动力学的显著影响。
+中文正文为五号宋体，English text is set in 10.5,pt Times New Roman，
+每段首行缩进两个汉字，单倍行距。中文文献可写作\citep{li1959}，
+两位作者的西文文献可写作\citep{hanahan2000}，多位作者可写作
+\citep{you1980}；多篇同时引用可写作\citep{hanahan2000,you1980}。
+
+\subsection{HCCI 的数值模拟研究现状}
+
+本节用于展示二级标题格式。二级标题顶格书写，序号后空一个汉字，
+采用小四号黑体和单倍行距。
+
+\subsubsection{HCCI 数值模拟模型}
+
+三级标题和四级标题均缩进两个汉字，采用小四号宋体。
+
+\paragraph{单区模型}
+
+此处填写四级标题下的正文内容。对总项包含的分项可使用以下编号：
+
+\begin{enumerate}
+  \item 单区模型；
+  \item 双区和多区模型；
+  \item 多维模型。
+\end{enumerate}
+
+\section{材料与方法}
+
+\subsection{计算方法}
+
+正文中的公式应另起一行并按全文连续编号。较长公式优先在等号处换行，
+否则在加、减、乘、除等运算符处换行，并将运算符写在新行行首：
+
+\begin{equation}
+  m=\sum_{k=1}^{K}m_k .
+\end{equation}
+
+\begin{align}
+  L(Z,S,U,E,F)
+    ={}& \sum_{i,j}^{n}\lvert x_i-x_j\rvert_2^2s_{ij}
+       +\lambda_1\lVert U\rVert_*
+       +\lambda_2\lVert E\rVert_1 \notag\\
+     &+2\lambda_3\operatorname{Tr}(F^{\mathsf T}L_SF)
+       +\langle C_1,X-XZ-E\rangle \notag\\
+     &+\frac{\mu}{2}\left(
+       \lVert X-XZ-E\rVert_F^2+
+       \lVert Z-S\rVert_F^2+
+       \lVert Z-U\rVert_F^2\right).
+\end{align}
+
+\section{结果}
+
+\subsection{热力学性质}
+
+表题置于表格上方，表序在左、表题在右，中间空一格，末尾不加标点。
+
+\begin{table}[htbp]
+  \centering
+  \caption{选取组分的热力学性质}
+  \label{tab:properties}
+  \begin{tabular}{cccc}
+    \toprule
+    组分 & $H_f$ (kcal/mol) & $S_f$ (kcal/mol) & $C_p$ (kcal/mol) \\
+    \midrule
+    A1 & 100 & 100 & 100 \\
+    A2 & 110 & 105 & 102 \\
+    A3 & 120 & 108 & 104 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% 跨页表格示例：续页重复表头，并在右上角显示“续表 n”。
+\begin{longtable}{>{\centering\arraybackslash}p{0.18\textwidth}
+                  >{\centering\arraybackslash}p{0.24\textwidth}
+                  >{\centering\arraybackslash}p{0.24\textwidth}}
+  \caption{跨页表格示例}\label{tab:long}\\
+  \toprule
+  方案 & 参数一 & 参数二 \\
+  \midrule
+  \endfirsthead
+  \multicolumn{3}{r}{\zihao{5}\PaperSong 续表~\ref{tab:long}}\\
+  \toprule
+  方案 & 参数一 & 参数二 \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  A & 1.0 & 2.0 \\
+  B & 1.1 & 2.1 \\
+  C & 1.2 & 2.2 \\
+\end{longtable}
+
+\subsection{结果曲线}
+
+每幅插图应有连续的图序和图题。将下方占位框替换为
+\texttt{\textbackslash includegraphics} 命令即可插入图片。
+
+\begin{figure}[htbp]
+  \centering
+  \fbox{\rule{0pt}{45mm}\rule{0.72\textwidth}{0pt}}
+  \caption{气缸压力随曲轴转角变化的曲线}
+  \label{fig:pressure}
+\end{figure}
+
+\section{讨论}
+
+此处讨论研究结果、误差来源、适用范围及与既有研究的差异。
+公式、表格和图片应分别按全文统一连续编号，不得重复或跳号。
+
+% 参考文献须手工按“中文在前、外文在后”排序：
+% 中文按第一作者姓名拼音排序，西文按第一作者姓氏字母排序。
+\begin{thebibliography}{99}
+
+\bibitem[李薰(1959)]{li1959}
+\JournalRef{李薰}{十年来中国冶金科学技术的发展}{金属学报}{1959}{4}{3--10}
+
+\bibitem[谭丙煜(1982)]{tan1982}
+\BookRef{谭丙煜}{怎样撰写科学论文}{}{沈阳}{辽宁人民出版社}{1982}{59--76}
+
+\bibitem[王磊(2014)]{wang2014}
+\ThesisRef{王磊}{中国人非小细胞肺癌 PIK3CA 基因突变及 FGFR 融合基因研究}
+  {博士学位论文}{上海}{复旦大学}{2014}{103--115}
+
+\bibitem[Eissen(1974)]{eissen1974}
+\BookRef{Eissen H. N.}{Immunology: an introduction to molecular and cellular principles
+  of the immune responses}{5th ed}{New York}{Harper and Row}{1974}{40--49}
+
+\bibitem[Hanahan \& Weinberg(2000)]{hanahan2000}
+\JournalRef{Hanahan D., \& Weinberg R. A.}{The hallmarks of cancer}
+  {Cell}{2000}{100}{57--70}
+
+\bibitem[You et al.(1980)]{you1980}
+\JournalRef{You C. H., Lee K. Y., Chey R. F. et al.}
+  {Electrogastrographic study of patients with unexplained nausea, bloating and vomiting}
+  {Gastroenterology}{1980}{79}{311--314}
+
+\end{thebibliography}
+
+\end{document}
