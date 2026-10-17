@@ -31,13 +31,45 @@ xelatex -interaction=nonstopmode -halt-on-error "实验报告（仅封面）.tex
 
 ### 字体与宏包
 
-当前使用系统字体：
+模板按名称加载系统字体：
 
 - 中文：`SimSun`（宋体）；粗体、斜体分别使用 `SimHei`（黑体）、`KaiTi`（楷体）。
 - 英文：`Times New Roman`。
 - 代码：`Consolas`。
 
-Windows 通常提供这些字体。若其他系统或在线编译环境提示找不到字体，请安装相应字体，或修改源文件中的 `\setmainfont`、`\setCJKmainfont`、`\setCJKsansfont`、`\setCJKmonofont`、`\setmonofont` 及封面字体定义。
+| 位置 | 字体 | 字号 |
+| --- | --- | --- |
+| 封面英文校名 | Times New Roman，加粗 | 15 pt |
+| 封面课程名、文档类型 | 黑体 | 30 pt |
+| 封面信息字段、地点 | 黑体 | 小三（15 pt） |
+| 封面日期 | 宋体 | 小三（15 pt） |
+| 正文 | 中文宋体，西文 Times New Roman | 小四（12 pt） |
+| 正文一级、二级、三级标题 | 由 `ctexart` 默认标题样式控制，中文粗体为黑体 | 一级小二（18 pt），二级小三（15 pt），三级小四（12 pt） |
+| 正文页眉 | 中文宋体，西文 Times New Roman | 五号（10.5 pt） |
+| 正文页码 | Times New Roman | 小四（12 pt） |
+| 代码、行号 | Consolas | 代码 10 pt，行号六号（7.5 pt，`\scriptsize`） |
+| 代码块标题 | 中文宋体，西文 Times New Roman | 五号（10.5 pt） |
+
+两个版本的封面字体与字号一致；仅封面版不包含正文、页眉和代码块。校徽和中文校名为图片，不受字体设置影响。
+
+### 查询系统可用字体
+
+Windows 常用字体在其他系统、在线环境或部分 Windows 安装中也可能缺失。本模板没有自动回退，遇到找不到字体时，应先扫描系统可用字体。Windows PowerShell：
+
+```powershell
+Add-Type -AssemblyName System.Drawing
+$fontCollection = New-Object System.Drawing.Text.InstalledFontCollection
+$fontCollection.Families.Name | Sort-Object -Unique
+$fontCollection.Dispose()
+```
+
+已安装 Fontconfig 的环境也可运行：
+
+```sh
+fc-list : family
+```
+
+根据扫描结果安装所需字体，或将源文件中的 `\setmainfont`、`\setCJKmainfont`、`\setCJKsansfont`、`\setCJKmonofont`、`\setmonofont` 及封面字体定义改为可用字体名称。替换时也需检查粗体和斜体字体是否存在。系统列表仅供初筛，最终以 XeLaTeX 能否加载为准；安装字体后请重启编辑器再编译，并检查换行和分页。
 
 主要宏包包括 `ctex`、`geometry`、`array`、`graphicx`、`fontspec`、`xeCJK`；完整版还使用 `fancyhdr`、`xcolor`、`listings` 和 `tcolorbox`。代码高亮无需 Python、Pygments 或 `-shell-escape`。
 

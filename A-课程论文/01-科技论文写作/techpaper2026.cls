@@ -27,57 +27,31 @@
 \RequirePackage{etoolbox}
 \RequirePackage[hidelinks]{hyperref}
 
-% 字体：优先读取用户提供的 Windows 字体文件；找不到时才使用系统字体。
-\newcommand{\PaperWindowsFontPath}{/home/ztc/share/Windows系统字体/Fonts/}
-\IfFileExists{\PaperWindowsFontPath simsun.ttc}{
-  \setmainfont[
-    Path=\PaperWindowsFontPath,
-    BoldFont=timesbd.ttf,
-    ItalicFont=timesi.ttf,
-    BoldItalicFont=timesbi.ttf
-  ]{times.ttf}
-  \setCJKmainfont[
-    Path=\PaperWindowsFontPath,
-    AutoFakeBold=2
-  ]{simsun.ttc}
-  \newCJKfontfamily\PaperSong[
-    Path=\PaperWindowsFontPath,
-    AutoFakeBold=2
-  ]{simsun.ttc}
-  \newCJKfontfamily\PaperHei[
-    Path=\PaperWindowsFontPath,
-    BoldFont=simhei.ttf
-  ]{simhei.ttf}
-  \setCJKmonofont[Path=\PaperWindowsFontPath]{simsun.ttc}
-}{
-  \IfFontExistsTF{Times New Roman}
-    {\setmainfont{Times New Roman}}
+% 按字体名称检测，不依赖操作系统或字体文件路径。
+\IfFontExistsTF{Times New Roman}
+  {\setmainfont{Times New Roman}}
+  {\IfFontExistsTF{Liberation Serif}
     {\setmainfont{Liberation Serif}}
-  \ExplSyntaxOn
-  \sys_if_platform_windows:TF
-    {
-      \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
-      \newCJKfontfamily\PaperSong[AutoFakeBold=2.5]{SimSun}
-      \newCJKfontfamily\PaperHei[AutoFakeBold=2.5]{SimHei}
-      \setCJKmonofont{SimSun}
-    }
-    {
-      \IfFontExistsTF{AR~PL~SungtiL~GB}
-        {
-          \setCJKmainfont[AutoFakeBold=2.5]{AR~PL~SungtiL~GB}
-          \newCJKfontfamily\PaperSong[AutoFakeBold=2.5]{AR~PL~SungtiL~GB}
-        }
-        {
-          \setCJKmainfont[BoldFont=Noto~Serif~CJK~SC~SemiBold]{Noto~Serif~CJK~SC}
-          \newCJKfontfamily\PaperSong[BoldFont=Noto~Serif~CJK~SC~SemiBold]{Noto~Serif~CJK~SC}
-        }
-      \newCJKfontfamily\PaperHei[BoldFont=Noto~Sans~CJK~SC~Bold]{Noto~Sans~CJK~SC}
-      \setCJKmonofont{Noto~Sans~Mono~CJK~SC}
-    }
-  \ExplSyntaxOff
-}
+    {\setmainfont{TeX Gyre Termes}}}
 
-% 示例页面量得的版心接近 Word 中文文档常用边距；原 PDF 未提供数值。
+\IfFontExistsTF{SimSun}
+  {\newcommand{\PaperSongFont}{SimSun}}
+  {\IfFontExistsTF{AR PL SungtiL GB}
+    {\newcommand{\PaperSongFont}{AR PL SungtiL GB}}
+    {\IfFontExistsTF{Noto Serif CJK SC}
+      {\newcommand{\PaperSongFont}{Noto Serif CJK SC}}
+      {\newcommand{\PaperSongFont}{FandolSong-Regular}}}}
+\IfFontExistsTF{SimHei}
+  {\newcommand{\PaperHeiFont}{SimHei}}
+  {\IfFontExistsTF{Noto Sans CJK SC}
+    {\newcommand{\PaperHeiFont}{Noto Sans CJK SC}}
+    {\newcommand{\PaperHeiFont}{FandolHei-Regular}}}
+\setCJKmainfont[AutoFakeBold=2.5]{\PaperSongFont}
+\newCJKfontfamily\PaperSong[AutoFakeBold=2.5]{\PaperSongFont}
+\newCJKfontfamily\PaperHei[AutoFakeBold=2.5]{\PaperHeiFont}
+\setCJKmonofont{\PaperSongFont}
+
+% A4 页面及页边距。
 \geometry{
   a4paper,
   left=3.17cm,

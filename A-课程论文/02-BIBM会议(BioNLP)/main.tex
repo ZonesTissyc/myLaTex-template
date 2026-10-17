@@ -1,7 +1,7 @@
 % ======================================================================
 %  BIBM / IEEE 课程论文模板（支持中英文混排）
 %  适用课程：《生物文本挖掘与知识发现》等
-%  编译方式：pdflatex  ->  bibtex(可选)  ->  pdflatex  ->  pdflatex
+%  编译方式：pdflatex  ->  bibtex  ->  pdflatex  ->  pdflatex
 %  依赖宏包：IEEEtran.cls（BIBM 官方模板，请与本文件放同一目录）
 % ======================================================================
 \documentclass[conference]{IEEEtran}
@@ -79,7 +79,8 @@
 % ---------- 中文支持（pdflatex 下也能用） ----------
 % 说明：
 %   1) 使用 ctex 宏包并开启 UTF8，即可在 pdflatex 下输入中文；
-%   2) 若你想用 xelatex，可去掉下面这行，改用 \usepackage[UTF8]{ctex} 并设置中文字体。
+%   2) 缺少 Windows 中文字体时，先查询系统字体；使用 XeLaTeX 和 fontspec
+%      自定义字体的方法见本目录 README。pdfLaTeX 需要匹配的 TeX 字体支持。
 \usepackage[UTF8]{ctex}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
